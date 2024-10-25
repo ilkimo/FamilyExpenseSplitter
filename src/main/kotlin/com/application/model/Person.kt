@@ -7,5 +7,5 @@ data class Person(
     val earnings: MutableList<Earning> = mutableListOf(),
     val costs: MutableList<Cost> = mutableListOf(),
     var cumulativeCredit: Double = 0.0,
-    val monthlyCredit: MutableMap<YearMonth, Double> = mutableMapOf()
+    val monthlyCredit: MutableMap<YearMonth, Double> = mutableMapOf(),
 )

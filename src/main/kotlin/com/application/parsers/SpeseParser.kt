@@ -1,6 +1,5 @@
 package com.application.parsers
 
-import com.application.parsers.Parser
 import com.application.model.Cost
 import com.application.model.Person
 import java.io.File
@@ -9,9 +8,8 @@ import java.time.format.DateTimeFormatter
 
 class SpeseParser(
     private val filePath: String,
-    private val persons: MutableMap<String, Person>
+    private val persons: MutableMap<String, Person>,
 ) : Parser() {
-
     override fun parse() {
         val file = File(filePath)
         if (!file.exists()) throw Exception("Expenses file not found at $filePath")
@@ -36,4 +34,3 @@ class SpeseParser(
         }
     }
 }
-

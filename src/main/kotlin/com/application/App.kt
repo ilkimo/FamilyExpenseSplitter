@@ -22,8 +22,8 @@ import org.knowm.xchart.XYSeries
 import org.knowm.xchart.style.Styler
 
 fun main() {
-        val persons = mutableMapOf<String, Person>()
-        var salaryParser: SalaryParser
+    val persons = mutableMapOf<String, Person>()
+    var salaryParser: SalaryParser
         var speseParser: SpeseParser
         var personList: List<Person>
         var couple: Couple

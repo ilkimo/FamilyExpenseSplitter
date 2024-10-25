@@ -7,6 +7,5 @@ data class Cost(
     override val amount: Double,
     val currency: String,
     val payer: String,
-    val description: String
+    val description: String,
 ) : WithDateAndAmount
-
