@@ -8,4 +8,6 @@ data class Cost(
     val currency: String,
     val payer: String,
     val description: String,
+    val isPianoRecuperoCrediti: Boolean = false,
+    val numberOfMonths: Int? = null,
 ) : WithDateAndAmount
