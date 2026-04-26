@@ -15,7 +15,7 @@ COPY src /app/src
 RUN ./gradlew clean shadowJar --no-daemon
 
 # Stage 2: Run the application
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jre-jammy
 
 WORKDIR /app
 
@@ -29,11 +29,9 @@ RUN apt-get update && apt-get install -y \
     fontconfig \
     && rm -rf /var/lib/apt/lists/*
 
-# Create a non-root user with a dynamic UID/GID passed during build
-ARG USER_ID=1000
-ARG GROUP_ID=1000
-RUN groupadd -g ${GROUP_ID} mygroup && \
-    useradd -m -u ${USER_ID} -g mygroup myuser
+# Create a non-root user (matters for Kubernetes; locally overridden via `docker run --user 0:0`)
+RUN groupadd -g 1000 mygroup && \
+    useradd -m -u 1000 -g mygroup myuser
 
 # Copy the built shadow jar file from the builder stage
 COPY --from=builder /app/build/libs/ExpenseManager-1.0-SNAPSHOT-all.jar /app/application.jar
