@@ -5,6 +5,7 @@ import com.application.model.Couple
 import com.application.model.Person
 import com.application.model.Cost
 import com.application.model.Installment
+import com.application.model.SharedBucket
 import com.application.model.WithDateAndAmount
 import com.application.parsers.SalaryParser
 import com.application.parsers.SpeseParser
@@ -31,16 +32,20 @@ fun main() {
         var couple: Couple
         var contributions: Map<YearMonth, Map<String, Any>>
 
+        val sharedBucket = SharedBucket()
+
         try {
                 salaryParser = SalaryParser("src/main/resources/data/salari.csv", persons)
                 salaryParser.parse()
 
-                speseParser = SpeseParser("src/main/resources/data/spese.csv", persons)
+                if (persons.size != 2) {
+                        throw Exception("The application supports exactly two persons (got ${persons.size} after salaries).")
+                }
+
+                speseParser = SpeseParser("src/main/resources/data/spese.csv", persons, sharedBucket)
                 speseParser.parse()
 
-                if (persons.size != 2) {
-                        throw Exception("The application supports exactly two persons.")
-                }
+                sharedBucket.allocate(persons)
         } catch (e: Exception) {
                 println("An error occurred: ${e.message}")
                 exitProcess(1)
